@@ -24,7 +24,7 @@ public class ItemServiceImpl implements IItemService {
 
 		List<Producto> productos = Arrays
 				.asList(clienteRest.getForObject(
-						"http://localhost:8001/listar", Producto[].class));
+						"http://servicio-productos/listar", Producto[].class));
 		return productos.stream()
 				.map(p -> new Item(p, 1)).collect(Collectors.toList());
 	}
@@ -37,7 +37,7 @@ public class ItemServiceImpl implements IItemService {
 		
 		Producto producto = clienteRest
 				.getForObject(
-						"http://localhost:8001/ver/{id}",
+						"http://servicio-productos/ver/{id}",
 						Producto.class,
 						pathVariables);
 		
