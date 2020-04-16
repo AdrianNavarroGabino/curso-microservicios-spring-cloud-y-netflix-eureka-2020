@@ -44,7 +44,7 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/ver/{id}")
-	public Producto detalle(@PathVariable Long id) {
+	public Producto detalle(@PathVariable Long id) throws Exception {
 		Producto producto = productoService.findById(id);
 		
 		// Así sería con Environment
@@ -52,6 +52,19 @@ public class ProductoController {
 		
 		// Así con @Value
 		producto.setPort(port);
+		
+		/*
+		
+		// Prueba para probar el HystrixCommand en el controlador del item
+		
+		boolean ok = false;
+		
+		if(!ok)
+		{
+			throw new Exception("Fallo de prueba");
+		}
+		
+		*/
 		
 		return producto;
 	}
