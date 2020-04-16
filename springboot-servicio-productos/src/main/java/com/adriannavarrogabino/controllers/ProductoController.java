@@ -54,16 +54,21 @@ public class ProductoController {
 		producto.setPort(port);
 		
 		/*
-		
 		// Prueba para probar el HystrixCommand en el controlador del item
-		
 		boolean ok = false;
-		
 		if(!ok)
 		{
 			throw new Exception("Fallo de prueba");
 		}
+		*/
 		
+		
+		
+		/*
+		// Vamos a probar el timeout con Hystrix y Ribbon
+		// Al cambiar el timeout de hyxtrix en application.properties, deja de
+		// dar fallo
+		Thread.sleep(2000L);
 		*/
 		
 		return producto;
