@@ -71,6 +71,13 @@ public class ProductoController {
 		Thread.sleep(2000L);
 		*/
 		
+		
+		
+		/*
+		// Vamos a probar el timeout con Zuul API Gateway
+		Thread.sleep(2000L);
+		*/
+		
 		return producto;
 	}
 }
