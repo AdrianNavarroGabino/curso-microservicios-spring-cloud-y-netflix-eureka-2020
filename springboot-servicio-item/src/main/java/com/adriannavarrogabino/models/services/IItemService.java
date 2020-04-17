@@ -3,7 +3,7 @@ package com.adriannavarrogabino.models.services;
 import java.util.List;
 
 import com.adriannavarrogabino.models.Item;
-import com.adriannavarrogabino.models.Producto;
+import com.adriannavarrogabino.commons.models.entity.Producto;
 
 public interface IItemService {
 	

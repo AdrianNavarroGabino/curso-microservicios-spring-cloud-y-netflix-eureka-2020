@@ -1,5 +1,7 @@
 package com.adriannavarrogabino.models;
 
+import com.adriannavarrogabino.commons.models.entity.Producto;
+
 public class Item {
 
 	private Producto producto;

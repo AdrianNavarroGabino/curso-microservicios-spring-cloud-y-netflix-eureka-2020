@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.adriannavarrogabino.clientes.IProductoClienteRest;
 import com.adriannavarrogabino.models.Item;
-import com.adriannavarrogabino.models.Producto;
+import com.adriannavarrogabino.commons.models.entity.Producto;
 
 /*
  * Dos alternativas cuando hay dos clases que implementan la misma interfaz:
