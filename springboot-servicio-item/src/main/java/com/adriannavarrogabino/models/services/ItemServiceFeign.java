@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.adriannavarrogabino.clientes.IProductoClienteRest;
 import com.adriannavarrogabino.models.Item;
+import com.adriannavarrogabino.models.Producto;
 
 /*
  * Dos alternativas cuando hay dos clases que implementan la misma interfaz:
@@ -37,6 +38,24 @@ public class ItemServiceFeign implements IItemService {
 	public Item findById(Long id, Integer cantidad) {
 		
 		return new Item(clienteFeign.detalle(id), cantidad);
+	}
+
+	@Override
+	public Producto save(Producto producto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Producto update(Producto producto, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
