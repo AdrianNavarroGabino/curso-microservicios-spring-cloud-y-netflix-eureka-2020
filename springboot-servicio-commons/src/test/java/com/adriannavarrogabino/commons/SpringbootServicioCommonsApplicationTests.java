@@ -1,4 +1,4 @@
-package com.adriannavarrogabino;
+package com.adriannavarrogabino.commons;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

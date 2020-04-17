@@ -2,7 +2,7 @@ package com.adriannavarrogabino.models.services;
 
 import java.util.List;
 
-import com.adriannavarrogabino.models.entity.Producto;
+import com.adriannavarrogabino.commons.models.entity.Producto;
 
 public interface IProductoService {
 	

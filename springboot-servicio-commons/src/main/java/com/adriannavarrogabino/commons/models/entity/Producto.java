@@ -1,4 +1,4 @@
-package com.adriannavarrogabino.models.entity;
+package com.adriannavarrogabino.commons.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
