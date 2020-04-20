@@ -1,4 +1,4 @@
-package com.adriannavarrogabino.usuarios.models.entity;
+package com.adriannavarrogabino.usuarios.commons.models.entity;
 
 import java.io.Serializable;
 import java.util.List;

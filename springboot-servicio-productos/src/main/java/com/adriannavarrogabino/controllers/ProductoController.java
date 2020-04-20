@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +21,8 @@ import com.adriannavarrogabino.models.services.IProductoService;
 @RestController
 public class ProductoController {
 	
-	@Autowired
-	private Environment env;
+	//@Autowired
+	//private Environment env;
 	
 	/*
 	 * Alternativa mucho más fácil que Environment para coger cualquier valor
