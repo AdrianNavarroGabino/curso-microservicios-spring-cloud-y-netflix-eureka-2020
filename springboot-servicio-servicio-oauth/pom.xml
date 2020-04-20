@@ -50,8 +50,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.adriannavarrogabino.usuarios-commons</groupId>
-			<artifactId>springboot-servicio-usuarios-commons</artifactId>
+			<groupId>com.adriannavarrogabino.usuarios.commons</groupId>
+			<artifactId>springboot-servicio-usuarios.commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
@@ -59,6 +59,10 @@
 					<artifactId>spring-boot-starter-data-jpa</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 	</dependencies>
 

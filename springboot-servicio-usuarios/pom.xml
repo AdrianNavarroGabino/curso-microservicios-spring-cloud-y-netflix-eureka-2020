@@ -55,8 +55,8 @@
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.adriannavarrogabino.usuarios-commons</groupId>
-			<artifactId>springboot-servicio-usuarios-commons</artifactId>
+			<groupId>com.adriannavarrogabino.usuarios.commons</groupId>
+			<artifactId>springboot-servicio-usuarios.commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

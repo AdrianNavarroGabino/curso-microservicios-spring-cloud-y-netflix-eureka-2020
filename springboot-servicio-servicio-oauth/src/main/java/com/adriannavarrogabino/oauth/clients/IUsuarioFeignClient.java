@@ -10,5 +10,5 @@ import com.adriannavarrogabino.usuarios.commons.models.entity.Usuario;
 public interface IUsuarioFeignClient {
 
 	@GetMapping("/usuarios/search/buscar-username")
-	public Usuario findByUsername(@RequestParam String username);
+	public Usuario findByUsername(@RequestParam(name = "username") String username);
 }

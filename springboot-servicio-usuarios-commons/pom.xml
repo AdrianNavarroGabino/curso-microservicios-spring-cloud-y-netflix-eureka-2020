@@ -8,8 +8,8 @@
 		<version>2.1.13.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.adriannavarrogabino.usuarios-commons</groupId>
-	<artifactId>springboot-servicio-usuarios-commons</artifactId>
+	<groupId>com.adriannavarrogabino.usuarios.commons</groupId>
+	<artifactId>springboot-servicio-usuarios.commons</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-servicio-usuarios-commons</name>
 	<description>Microservicios</description>
