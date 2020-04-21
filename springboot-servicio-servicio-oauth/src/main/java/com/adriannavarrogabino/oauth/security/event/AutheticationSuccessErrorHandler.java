@@ -12,12 +12,16 @@ import org.springframework.stereotype.Component;
 import com.adriannavarrogabino.oauth.services.IUsuarioService;
 import com.adriannavarrogabino.usuarios.commons.models.entity.Usuario;
 
+import brave.Tracer;
 import feign.FeignException;
 
 @Component
 public class AutheticationSuccessErrorHandler implements AuthenticationEventPublisher {
 	
 	private Logger log = LoggerFactory.getLogger(AutheticationSuccessErrorHandler.class);
+	
+	@Autowired
+	private Tracer tracer;
 	
 	@Autowired
 	private IUsuarioService usuarioService;
@@ -44,6 +48,9 @@ public class AutheticationSuccessErrorHandler implements AuthenticationEventPubl
 		
 		try
 		{
+			StringBuilder errors = new StringBuilder();
+			errors.append("Error en el login: " + exception.getMessage());
+			
 			Usuario usuario = usuarioService.findByUsername(authentication.getName());
 			if(usuario.getIntentos() == null)
 			{
@@ -52,14 +59,17 @@ public class AutheticationSuccessErrorHandler implements AuthenticationEventPubl
 			
 			usuario.setIntentos(usuario.getIntentos() + 1);
 			log.info("Intentos: " + usuario.getIntentos());
+			errors.append("\nIntentos: " + usuario.getIntentos());
 			
 			if(usuario.getIntentos() >= 3)
 			{
 				log.error("Usuario " + usuario.getNombre() + " deshabilitado");
+				errors.append("\nUsuario " + usuario.getNombre() + " deshabilitado");
 				usuario.setEnabled(false);
 			}
 			
 			usuarioService.update(usuario, usuario.getId());
+			tracer.currentSpan().tag("error.mensaje", errors.toString());
 		}
 		catch(FeignException e)
 		{
