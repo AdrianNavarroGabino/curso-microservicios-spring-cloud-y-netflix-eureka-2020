@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.adriannavarrogabino.oauth.services.IUsuarioService;
+import com.adriannavarrogabino.usuarios.commons.models.entity.Usuario;
+
+import feign.FeignException;
 
 @Component
 public class AutheticationSuccessErrorHandler implements AuthenticationEventPublisher {
@@ -24,12 +27,45 @@ public class AutheticationSuccessErrorHandler implements AuthenticationEventPubl
 		
 		UserDetails user = (UserDetails)authentication.getPrincipal();
 		log.info("Success Login: " + user.getUsername());
+		
+		Usuario usuario = usuarioService.findByUsername(authentication.getName());
+		
+		if(usuario.getIntentos() != null && usuario.getIntentos() > 0)
+		{
+			usuario.setIntentos(0);
+			usuarioService.update(usuario, usuario.getId());
+		}
 	}
 
 	@Override
 	public void publishAuthenticationFailure(AuthenticationException exception, Authentication authentication) {
 
 		log.error("Error en el login: " + exception.getMessage());
+		
+		try
+		{
+			Usuario usuario = usuarioService.findByUsername(authentication.getName());
+			if(usuario.getIntentos() == null)
+			{
+				usuario.setIntentos(0);
+			}
+			
+			usuario.setIntentos(usuario.getIntentos() + 1);
+			log.info("Intentos: " + usuario.getIntentos());
+			
+			if(usuario.getIntentos() >= 3)
+			{
+				log.error("Usuario " + usuario.getNombre() + " deshabilitado");
+				usuario.setEnabled(false);
+			}
+			
+			usuarioService.update(usuario, usuario.getId());
+		}
+		catch(FeignException e)
+		{
+			log.error("El usuario " + authentication.getName() + " no existe en el sistema");
+		}
+		
 	}
 
 }
