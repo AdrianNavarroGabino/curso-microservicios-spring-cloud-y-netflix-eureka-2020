@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import com.adriannavarrogabino.oauth.clients.IUsuarioFeignClient;
 import com.adriannavarrogabino.usuarios.commons.models.entity.Usuario;
 
+import feign.FeignException;
+
 @Service
 public class UsuarioService implements IUsuarioService, UserDetailsService {
 	
@@ -28,33 +30,35 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Usuario usuario = client.findByUsername(username);
-		
-		if(usuario == null)
+		try
+		{
+			Usuario usuario = client.findByUsername(username);
+			
+			/*
+			 * Las authorities que necesita el constructor de org.springframework.security.core.userdetails.User
+			 * son una lista de los roles que hemos creado. Pero la lista debe ser
+			 * del tipo GrantedAuthority, por lo que mapeamos nuestros roles para
+			 * pasarle al constructor de SimpleGrantedAuthority (GrantedAuthority es
+			 * la interfaz) el nombre de cada rol para que genere la lista.
+			 */
+			List<GrantedAuthority> authorities = usuario.getRoles()
+					.stream()
+					.map(role -> new SimpleGrantedAuthority(role.getNombre()))
+					.peek(authority -> log.info("Role: " + authority.getAuthority()))
+					.collect(Collectors.toList());
+			
+			log.info("Usuario autenticado: " + username);
+			
+			return new User(usuario.getUsername(), usuario.getPassword(), usuario.isEnabled(),
+					true, true, true, authorities);
+		}
+		catch(FeignException e)
 		{
 			log.error("Error en el login, no existe el usuario " +
 					username + " en el sistema");
 			throw new UsernameNotFoundException("Error en el login, no existe el usuario " +
 					username + " en el sistema");
 		}
-		
-		/*
-		 * Las authorities que necesita el constructor de org.springframework.security.core.userdetails.User
-		 * son una lista de los roles que hemos creado. Pero la lista debe ser
-		 * del tipo GrantedAuthority, por lo que mapeamos nuestros roles para
-		 * pasarle al constructor de SimpleGrantedAuthority (GrantedAuthority es
-		 * la interfaz) el nombre de cada rol para que genere la lista.
-		 */
-		List<GrantedAuthority> authorities = usuario.getRoles()
-				.stream()
-				.map(role -> new SimpleGrantedAuthority(role.getNombre()))
-				.peek(authority -> log.info("Role: " + authority.getAuthority()))
-				.collect(Collectors.toList());
-		
-		log.info("Usuario autenticado: " + username);
-		
-		return new User(usuario.getUsername(), usuario.getPassword(), usuario.isEnabled(),
-				true, true, true, authorities);
 	}
 
 	@Override
